@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "agence")
@@ -29,4 +31,12 @@ public class Agence {
 
     @Column(nullable = false, length = 20)
     private String telephone;
+
+    // 1 Agence -> N Vehicule : pas de cascade REMOVE (supprimer une agence ne supprime pas ses vehicules)
+    @OneToMany(mappedBy = "agence", fetch = FetchType.LAZY)
+    private List<Vehicule> vehicules = new ArrayList<>();
+
+    // 1 Agence -> N Employe
+    @OneToMany(mappedBy = "agence", fetch = FetchType.LAZY)
+    private List<Employe> employes = new ArrayList<>();
 }

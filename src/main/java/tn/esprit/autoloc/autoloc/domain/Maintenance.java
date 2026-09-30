@@ -25,4 +25,12 @@ public class Maintenance {
 
     @Column(nullable = false)
     private LocalDate dateFin;
+
+    @Column(length = 255)
+    private String description;
+
+    // N Maintenance -> 1 Vehicule : cascade PERSIST (unidirectionnelle, comme sur le diagramme UML)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JoinColumn(name = "vehicule_id")
+    private Vehicule vehicule;
 }
